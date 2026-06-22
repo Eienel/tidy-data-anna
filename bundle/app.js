@@ -329,7 +329,10 @@ async function onExport() {
   setBusy(true);
   try {
     const res = await callTidy("export", { session_id: sessionId });
-    setStatus(`Exported ${res.row_count} rows × ${res.col_count} cols`);
+    // 1) Download the cleaned CSV to the user's device.
+    const downloaded = downloadCsv(res.csv, "tidy-data-clean.csv");
+    setStatus(`${downloaded ? "Downloaded" : "Exported"} ${res.row_count} rows × ${res.col_count} cols`);
+    // 2) Also post it into chat as a backup / shareable artifact.
     if (anna) {
       const body = "```csv\n" + res.csv.trim() + "\n```";
       await anna.chat.write_message({
@@ -438,6 +441,27 @@ function isNoOp(d) {
 
 function checkOpsEmpty() {
   els.opsEmpty.hidden = els.opList.children.length > 0;
+}
+
+function downloadCsv(csv, filename) {
+  // Trigger a real file download. Sandboxed iframes may block this; if so we
+  // return false and the chat copy below still delivers the data.
+  try {
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    return true;
+  } catch (e) {
+    console.warn("[tidy-data] download blocked:", e?.message || e);
+    return false;
+  }
 }
 
 function escapeHtml(s) {
