@@ -1,4 +1,4 @@
-/* TidyData — premium single-window styling. Dark by default; honors light OS
+/* TidyData - premium single-window styling. Dark by default; honors light OS
    pref and an explicit toggle via [data-theme] on <html>. */
 
 :root {
@@ -140,6 +140,13 @@ tbody tr:hover { background: var(--chip); }
 .applied__type { font-weight: 600; font-size: 12.5px; }
 
 .card--actions { margin-top: auto; }
+
+/* export output */
+.export { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.export__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.export__head a.btn { text-decoration: none; display: inline-flex; align-items: center; }
+.export__text { width: 100%; min-height: 120px; resize: vertical; border-radius: 10px; border: 1px solid var(--card-border); background: rgba(0,0,0,0.22); color: var(--fg); padding: 10px; font: 12px/1.45 "SF Mono", "Cascadia Code", Consolas, monospace; }
+:root[data-theme="light"] .export__text { background: rgba(255,255,255,0.6); }
 
 /* footer */
 .shell__foot { display: flex; align-items: center; gap: 9px; padding-top: 2px; }

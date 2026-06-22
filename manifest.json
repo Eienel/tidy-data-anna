@@ -19,7 +19,7 @@
     }
   ],
   "optional_executas": [],
-  "system_prompt_addendum": "The user has the TidyData app open. The tidy-engine Executa is the ONLY source of truth for the user's table: call it with method='tidy' and the appropriate action (load/suggest/preview/apply/undo/export/get) for anything involving the data. Never read, transform, or count rows/cells yourself, and never state a number of rows or cells changed unless it came from a tidy-engine diff — those counts are computed deterministically by the engine and must not be invented. You PROPOSE cleaning operations in plain English; the human approves each one in the window before it is applied. The tidy-coach skill defines tone and the propose-then-ratify protocol; follow it when responding inside this app's window.",
+  "system_prompt_addendum": "The user has the TidyData app open. The tidy-engine Executa is the ONLY source of truth for the user's table: call it with method='tidy' and the appropriate action (load/suggest/preview/apply/undo/export/get) for anything involving the data. Never read, transform, or count rows/cells yourself, and never state a number of rows or cells changed unless it came from a tidy-engine diff - those counts are computed deterministically by the engine and must not be invented. You PROPOSE cleaning operations in plain English; the human approves each one in the window before it is applied. The tidy-coach skill defines tone and the propose-then-ratify protocol; follow it when responding inside this app's window.",
   "user_message_prefix_template": "[TidyData] {user_message}",
   "tags": ["productivity", "data", "csv", "spreadsheet", "cleaning"],
   "ui": {

@@ -31,7 +31,7 @@
       <!-- STAGE 1: intake -->
       <section class="card stage stage--intake" id="stage-intake">
         <h2 class="card__title">Paste your messy data</h2>
-        <p class="muted small">CSV or TSV. The AI proposes fixes; a deterministic engine proves and applies them — only after you approve.</p>
+        <p class="muted small">CSV or TSV. The AI proposes fixes; a deterministic engine proves and applies them - only after you approve.</p>
         <textarea id="raw-input" class="raw" spellcheck="false" placeholder="Name, Date, Amount&#10; alice , 01/05/2023, $1,200.50&#10;BOB, 2023-01-06, 900"></textarea>
         <div class="row gap">
           <button class="btn btn--primary" id="analyze-btn" type="button">Analyze</button>
@@ -46,7 +46,7 @@
             <div class="card">
               <header class="card__head">
                 <h2>Preview</h2>
-                <span id="dims" class="muted small">—</span>
+                <span id="dims" class="muted small">-</span>
               </header>
               <div class="tablewrap"><table id="data-table"><thead></thead><tbody></tbody></table></div>
             </div>
@@ -63,7 +63,7 @@
             <div class="card card--review">
               <header class="card__head">
                 <h2>Proposed fixes</h2>
-                <span id="proposer-tag" class="tag">—</span>
+                <span id="proposer-tag" class="tag">-</span>
               </header>
               <p class="muted small">Each fix shows the engine's exact effect. Nothing is applied until you approve.</p>
               <ul id="op-list" class="ops"></ul>
@@ -80,6 +80,18 @@
                 <button class="btn btn--ghost" id="undo-btn" type="button" disabled>Undo last</button>
                 <button class="btn btn--primary" id="export-btn" type="button">Export clean CSV</button>
               </div>
+
+              <div id="export-output" class="export" hidden>
+                <div class="export__head">
+                  <span id="export-summary" class="muted small">-</span>
+                  <div class="row gap">
+                    <a id="download-link" class="btn btn--primary btn--sm" download="tidy-data-clean.csv" href="#">Download .csv</a>
+                    <button class="btn btn--ghost btn--sm" id="copy-btn" type="button">Copy</button>
+                  </div>
+                </div>
+                <textarea id="export-text" class="export__text" readonly spellcheck="false"></textarea>
+              </div>
+
               <button class="btn btn--ghost btn--block" id="restart-btn" type="button">Start over</button>
             </div>
           </div>

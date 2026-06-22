@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-tidy-engine — Executa stdio tool plugin (single-dispatcher method)
+tidy-engine - Executa stdio tool plugin (single-dispatcher method)
 
 The DETERMINISTIC source of truth for the TidyData Anna App. The host LLM only
 *proposes* cleaning operations in plain English; this engine is the only thing
 that ever reads, parses, transforms, or counts the user's data. Every number the
-UI shows (rows removed, cells changed, duplicates found) is computed here — never
-by the model — so a "47 cells changed" claim is real, not a hallucination.
+UI shows (rows removed, cells changed, duplicates found) is computed here - never
+by the model - so a "47 cells changed" claim is real, not a hallucination.
 
 Working tables are persisted to ``~/.anna/tidy-data/state.json`` keyed by a
 session id, so a reload re-hydrates the in-progress clean without a backend.
@@ -39,7 +39,7 @@ from pathlib import Path
 from typing import Any
 
 # ---------------------------------------------------------------------------
-# Plugin manifest — Anna calls ``describe`` and uses this dict verbatim.
+# Plugin manifest - Anna calls ``describe`` and uses this dict verbatim.
 # NOTE: tools[].parameters MUST be a list of {name,type,description,required}
 # descriptors. A JSON-Schema object here makes describe return "no manifest".
 # ---------------------------------------------------------------------------
@@ -173,7 +173,7 @@ def _sniff_delimiter(sample: str) -> str:
 def _parse_table(raw_text: str) -> tuple[list[str], list[list[str]]]:
     raw_text = (raw_text or "").replace("\r\n", "\n").replace("\r", "\n").strip("\n")
     if not raw_text.strip():
-        raise ValueError("raw_text is empty — paste some CSV/TSV rows first")
+        raise ValueError("raw_text is empty - paste some CSV/TSV rows first")
     delim = _sniff_delimiter(raw_text)
     reader = csv.reader(io.StringIO(raw_text), delimiter=delim)
     rows = [list(r) for r in reader]
@@ -324,7 +324,7 @@ def _suggested_ops(headers: list[str], issues: list[dict[str, Any]]) -> list[dic
 
 
 # ---------------------------------------------------------------------------
-# Operations — each returns (new_headers, new_body). Pure functions.
+# Operations - each returns (new_headers, new_body). Pure functions.
 # ---------------------------------------------------------------------------
 
 def _require_col(headers: list[str], column: str) -> int:
@@ -452,7 +452,7 @@ def _apply_op(headers, body, op) -> tuple[list[str], list[list[str]]]:
 
 
 def _diff_stats(h0, b0, h1, b1) -> dict[str, Any]:
-    """Deterministic before/after counts — the anti-hallucination guarantee."""
+    """Deterministic before/after counts - the anti-hallucination guarantee."""
     cells_changed = 0
     # cell-level diff only meaningful when shape comparable by row index + same headers
     if h0 == h1:

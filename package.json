@@ -2,7 +2,7 @@
   "name": "anna-app-tidy-data",
   "private": true,
   "version": "0.1.0",
-  "description": "TidyData — Anna App: AI proposes spreadsheet fixes, a deterministic engine proves them, you approve.",
+  "description": "TidyData - Anna App: AI proposes spreadsheet fixes, a deterministic engine proves them, you approve.",
   "scripts": {
     "dev": "anna-app dev",
     "dev:nollm": "anna-app dev --no-llm",

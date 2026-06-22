@@ -1,5 +1,5 @@
 /**
- * TidyData — Anna App bundle controller
+ * TidyData - Anna App bundle controller
  *
  * Connects to Anna via the runtime SDK (global: AnnaAppRuntime).
  *
@@ -31,7 +31,7 @@ const TOOL_METHOD = "tidy";
 const STORAGE_KEY = "tidy-data:session";
 
 // The op vocabulary the engine understands. Used to validate anything the LLM
-// proposes — unknown shapes are dropped before they ever reach the engine.
+// proposes - unknown shapes are dropped before they ever reach the engine.
 const OP_TYPES = new Set([
   "trim_whitespace", "drop_empty_rows", "drop_empty_columns", "dedupe_rows",
   "normalize_case", "standardize_dates", "normalize_numbers", "fill_blanks",
@@ -72,7 +72,14 @@ const els = {
   undo: $("#undo-btn"),
   export: $("#export-btn"),
   restart: $("#restart-btn"),
+  exportOutput: $("#export-output"),
+  exportSummary: $("#export-summary"),
+  exportText: $("#export-text"),
+  downloadLink: $("#download-link"),
+  copyBtn: $("#copy-btn"),
 };
+
+let lastDownloadUrl = null;
 
 let anna = null;
 let sessionId = null;
@@ -92,7 +99,7 @@ async function init() {
     setStatus("Connected");
   } catch (e) {
     setConn(false);
-    setStatus("Standalone preview — open inside Anna to clean data", "warn");
+    setStatus("Standalone preview - open inside Anna to clean data", "warn");
     els.analyze.disabled = true;
     console.warn("[tidy-data] standalone:", e?.message || e);
     return;
@@ -118,14 +125,14 @@ async function callTidy(action, extra = {}) {
     method: TOOL_METHOD,
     args: { action, ...extra },
   });
-  // Unwrap InvokeResult { success, data } — tolerate either wrapped or raw.
+  // Unwrap InvokeResult { success, data } - tolerate either wrapped or raw.
   const payload = res && typeof res === "object" && "success" in res ? res : { success: true, data: res };
   if (!payload.success) throw new Error(payload.error || "engine error");
   return payload.data;
 }
 
 // ---------------------------------------------------------------------------
-// Stage 1 — analyze
+// Stage 1 - analyze
 // ---------------------------------------------------------------------------
 
 async function onAnalyze() {
@@ -153,7 +160,7 @@ async function onAnalyze() {
 }
 
 // ---------------------------------------------------------------------------
-// Proposing fixes — LLM proposes, engine validates+previews. Falls back to the
+// Proposing fixes - LLM proposes, engine validates+previews. Falls back to the
 // engine's deterministic `suggest` when the host LLM is unavailable.
 // ---------------------------------------------------------------------------
 
@@ -183,7 +190,7 @@ async function llmPropose(issues, headers) {
   const issueText = issues.map((i) => "- " + i.label).join("\n") || "- (none detected)";
   const prompt =
 `You are a data-cleaning planner for a spreadsheet tool. The deterministic engine
-will execute and verify your operations — you only PLAN them.
+will execute and verify your operations - you only PLAN them.
 
 Columns: ${JSON.stringify(headers)}
 Detected issues:
@@ -226,7 +233,7 @@ function parseOps(text) {
 }
 
 // ---------------------------------------------------------------------------
-// Rendering — ops review queue
+// Rendering - ops review queue
 // ---------------------------------------------------------------------------
 
 async function renderOps(ops) {
@@ -254,7 +261,7 @@ async function renderOps(ops) {
       diff = pv.diff;
       li.querySelector(".op__diff").textContent = summarizeDiff(diff);
       if (isNoOp(diff)) {
-        li.querySelector(".op__diff").textContent = "no change — already clean";
+        li.querySelector(".op__diff").textContent = "no change - already clean";
         li.classList.add("op--noop");
       }
     } catch (e) {
@@ -285,7 +292,7 @@ async function approveOp(op, li, diff) {
     if (anna) {
       anna.chat.write_message({
         role: "user",
-        content: `Approved fix · ${prettyType(op)} — ${summarizeDiff(res.diff)}`,
+        content: `Approved fix · ${prettyType(op)} - ${summarizeDiff(res.diff)}`,
       }).catch(() => {});
     }
   } catch (e) {
@@ -329,10 +336,14 @@ async function onExport() {
   setBusy(true);
   try {
     const res = await callTidy("export", { session_id: sessionId });
-    // 1) Download the cleaned CSV to the user's device.
-    const downloaded = downloadCsv(res.csv, "tidy-data-clean.csv");
-    setStatus(`${downloaded ? "Downloaded" : "Exported"} ${res.row_count} rows × ${res.col_count} cols`);
-    // 2) Also post it into chat as a backup / shareable artifact.
+    // 1) Show the cleaned CSV in-window: a real download link the user clicks
+    //    (survives the sandbox) + a copyable text box that always works.
+    showExport(res);
+    // 2) Also attempt a programmatic download (works in the real Anna runtime;
+    //    sandboxed dev iframes may block it, which is why the link/box exist).
+    downloadCsv(res.csv, "tidy-data-clean.csv");
+    setStatus(`Exported ${res.row_count} rows × ${res.col_count} cols - download or copy below`);
+    // 3) Also post it into chat as a backup / shareable artifact.
     if (anna) {
       const body = "```csv\n" + res.csv.trim() + "\n```";
       await anna.chat.write_message({
@@ -366,6 +377,7 @@ function onRestart() {
   appliedLog = [];
   els.opList.innerHTML = "";
   els.appliedList.innerHTML = "";
+  els.exportOutput.hidden = true;
   els.body.dataset.stage = "intake";
   els.stageWork.hidden = true;
   setStatus("Ready");
@@ -373,7 +385,7 @@ function onRestart() {
 }
 
 // ---------------------------------------------------------------------------
-// Rendering — table + issues
+// Rendering - table + issues
 // ---------------------------------------------------------------------------
 
 function renderPreview(preview) {
@@ -393,7 +405,7 @@ function renderIssues(issues) {
   if (!issues.length) {
     const li = document.createElement("li");
     li.className = "issues__clean";
-    li.textContent = "✓ No issues detected — your data looks clean.";
+    li.textContent = "✓ No issues detected - your data looks clean.";
     els.issueList.appendChild(li);
     return;
   }
@@ -443,6 +455,35 @@ function checkOpsEmpty() {
   els.opsEmpty.hidden = els.opList.children.length > 0;
 }
 
+function showExport(res) {
+  els.exportText.value = res.csv;
+  els.exportSummary.textContent =
+    `${res.row_count} rows × ${res.col_count} cols · ${appliedLog.length} fix${appliedLog.length === 1 ? "" : "es"} applied`;
+  // Point the visible download link at a fresh blob URL the user can click.
+  try {
+    if (lastDownloadUrl) URL.revokeObjectURL(lastDownloadUrl);
+    const blob = new Blob([res.csv], { type: "text/csv;charset=utf-8" });
+    lastDownloadUrl = URL.createObjectURL(blob);
+    els.downloadLink.href = lastDownloadUrl;
+  } catch { /* href stays '#'; copy box still works */ }
+  els.exportOutput.hidden = false;
+  els.exportText.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+async function onCopy() {
+  const text = els.exportText.value;
+  if (!text) return;
+  try {
+    await navigator.clipboard.writeText(text);
+    setStatus("Copied CSV to clipboard");
+  } catch {
+    // Clipboard API can be blocked in sandboxed iframes; fall back to select.
+    els.exportText.focus();
+    els.exportText.select();
+    setStatus("Press Ctrl+C to copy the selected CSV");
+  }
+}
+
 function downloadCsv(csv, filename) {
   // Trigger a real file download. Sandboxed iframes may block this; if so we
   // return false and the chat copy below still delivers the data.
@@ -470,7 +511,7 @@ function escapeHtml(s) {
 
 function syncTitle(issueCount) {
   if (!anna) return;
-  const t = issueCount > 0 ? `${issueCount} issue${issueCount === 1 ? "" : "s"} — TidyData` : "Clean — TidyData";
+  const t = issueCount > 0 ? `${issueCount} issue${issueCount === 1 ? "" : "s"} - TidyData` : "Clean - TidyData";
   anna.window.set_title({ title: t }).catch(() => {});
 }
 
@@ -509,9 +550,10 @@ function honorTheme() {
 
 function bindUi() {
   els.analyze.addEventListener("click", onAnalyze);
-  els.sample.addEventListener("click", () => { els.raw.value = SAMPLE; setStatus("Sample loaded — press Analyze"); });
+  els.sample.addEventListener("click", () => { els.raw.value = SAMPLE; setStatus("Sample loaded - press Analyze"); });
   els.undo.addEventListener("click", onUndo);
   els.export.addEventListener("click", onExport);
+  els.copyBtn.addEventListener("click", onCopy);
   els.restart.addEventListener("click", onRestart);
   els.themeToggle.addEventListener("click", toggleTheme);
 }

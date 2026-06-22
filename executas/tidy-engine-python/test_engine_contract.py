@@ -4,7 +4,7 @@
 Run: python test_engine_contract.py   (no dependencies, stdlib only)
 
 These assert that every count the UI displays is computed deterministically by
-the engine — the property that makes "N cells changed" trustworthy rather than
+the engine - the property that makes "N cells changed" trustworthy rather than
 a model hallucination.
 """
 import importlib.util

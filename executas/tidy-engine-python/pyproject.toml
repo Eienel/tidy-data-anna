@@ -1,7 +1,7 @@
 [project]
 name = "tool-eienel-tidy-engine-84txvjcy"
 version = "1.0.0"
-description = "Deterministic spreadsheet/CSV cleaning engine — Anna Executa stdio tool."
+description = "Deterministic spreadsheet/CSV cleaning engine - Anna Executa stdio tool."
 requires-python = ">=3.10"
 dependencies = []
 
