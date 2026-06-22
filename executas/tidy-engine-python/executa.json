@@ -5,7 +5,7 @@
   "executa_type": "tool",
   "description": "Deterministic spreadsheet/CSV cleaning engine for the TidyData app (load/suggest/preview/apply/undo/export). The single source of truth for the table, so Anna never invents row/cell counts.",
 
-  "tool_id": "tool-test-tidy-engine-12345678",
+  "tool_id": "tool-eienel-tidy-engine-84txvjcy",
   "type": "python",
   "enabled": true,
 
@@ -18,22 +18,22 @@
       },
       "binary": {
         "type": "binary",
-        "executable_name": "tool-test-tidy-engine-12345678",
+        "executable_name": "tool-eienel-tidy-engine-84txvjcy",
         "supports_protocol": true,
         "binary_urls": {
           "darwin-arm64": {
-            "url": "https://github.com/whtcjdtc2007/anna-executa-examples/releases/download/tidy-engine-v1.0.0/tool-test-tidy-engine-12345678-darwin-arm64.tar.gz",
-            "entrypoint": "tool-test-tidy-engine-12345678",
+            "url": "https://github.com/Eienel/tidy-data-anna/releases/download/tidy-engine-v1.0.0/tool-eienel-tidy-engine-84txvjcy-darwin-arm64.tar.gz",
+            "entrypoint": "tool-eienel-tidy-engine-84txvjcy",
             "format": "tar.gz"
           },
           "darwin-x86_64": {
-            "url": "https://github.com/whtcjdtc2007/anna-executa-examples/releases/download/tidy-engine-v1.0.0/tool-test-tidy-engine-12345678-darwin-x86_64.tar.gz",
-            "entrypoint": "tool-test-tidy-engine-12345678",
+            "url": "https://github.com/Eienel/tidy-data-anna/releases/download/tidy-engine-v1.0.0/tool-eienel-tidy-engine-84txvjcy-darwin-x86_64.tar.gz",
+            "entrypoint": "tool-eienel-tidy-engine-84txvjcy",
             "format": "tar.gz"
           },
           "linux-x86_64": {
-            "url": "https://github.com/whtcjdtc2007/anna-executa-examples/releases/download/tidy-engine-v1.0.0/tool-test-tidy-engine-12345678-linux-x86_64.tar.gz",
-            "entrypoint": "tool-test-tidy-engine-12345678",
+            "url": "https://github.com/Eienel/tidy-data-anna/releases/download/tidy-engine-v1.0.0/tool-eienel-tidy-engine-84txvjcy-linux-x86_64.tar.gz",
+            "entrypoint": "tool-eienel-tidy-engine-84txvjcy",
             "format": "tar.gz"
           }
         }

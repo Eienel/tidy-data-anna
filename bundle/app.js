@@ -21,7 +21,7 @@
 
 import { AnnaAppRuntime } from "/static/anna-apps/_sdk/latest/index.js";
 
-const DEV_FALLBACK_TOOL_ID = "tool-test-tidy-engine-12345678";
+const DEV_FALLBACK_TOOL_ID = "tool-eienel-tidy-engine-84txvjcy";
 const TOOL_ID =
   (typeof window !== "undefined"
     && window.__ANNA_TOOL_IDS__

@@ -15,7 +15,7 @@ metadata:
       tools:
         # Replace with the tidy-engine Tool's server-minted tool_id
         # (e.g. tool-yourhandle-tidy-engine-abcd1234).
-        - tool-CHANGEME-tidy-engine-CHANGEME
+        - tool-eienel-tidy-engine-84txvjcy
 ---
 
 # Tidy Coach

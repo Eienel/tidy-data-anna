@@ -1,12 +1,12 @@
 [project]
-name = "tool-test-tidy-engine-12345678"
+name = "tool-eienel-tidy-engine-84txvjcy"
 version = "1.0.0"
 description = "Deterministic spreadsheet/CSV cleaning engine — Anna Executa stdio tool."
 requires-python = ">=3.10"
 dependencies = []
 
 [project.scripts]
-"tool-test-tidy-engine-12345678" = "tidy_engine_plugin:main"
+"tool-eienel-tidy-engine-84txvjcy" = "tidy_engine_plugin:main"
 
 [build-system]
 requires = ["hatchling"]

@@ -11,9 +11,9 @@
     "https://example.com/tidy-data/shot-1.png",
     "https://example.com/tidy-data/shot-2.png"
   ],
-  "homepage_url": "https://github.com/whtcjdtc2007/anna-executa-examples/tree/main/examples/anna-app-tidy-data",
-  "support_url": "https://github.com/whtcjdtc2007/anna-executa-examples/issues",
-  "privacy_url": "https://github.com/whtcjdtc2007/anna-executa-examples/tree/main/examples/anna-app-tidy-data#privacy",
+  "homepage_url": "https://github.com/Eienel/tidy-data-anna",
+  "support_url": "https://github.com/Eienel/tidy-data-anna/issues",
+  "privacy_url": "https://github.com/Eienel/tidy-data-anna#privacy",
   "pricing_model": "free",
 
   "_comment_bundled_executas": "Executas that ship inside this app. `anna-app apps publish` publishes each one first, then substitutes its server-minted tool_id into every `bundled:<handle>` reference in manifest.json (in memory) and writes bundle/anna-tool-ids.js so the UI bundle can read the same ids.",
