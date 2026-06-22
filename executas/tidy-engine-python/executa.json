@@ -1,0 +1,45 @@
+{
+  "slug": "tidy-engine",
+  "name": "Tidy Engine",
+  "version": "1.0.0",
+  "executa_type": "tool",
+  "description": "Deterministic spreadsheet/CSV cleaning engine for the TidyData app (load/suggest/preview/apply/undo/export). The single source of truth for the table, so Anna never invents row/cell counts.",
+
+  "tool_id": "tool-test-tidy-engine-12345678",
+  "type": "python",
+  "enabled": true,
+
+  "distribution": {
+    "active": "local",
+    "profiles": {
+      "local": {
+        "type": "local",
+        "supports_protocol": true
+      },
+      "binary": {
+        "type": "binary",
+        "executable_name": "tool-test-tidy-engine-12345678",
+        "supports_protocol": true,
+        "binary_urls": {
+          "darwin-arm64": {
+            "url": "https://github.com/whtcjdtc2007/anna-executa-examples/releases/download/tidy-engine-v1.0.0/tool-test-tidy-engine-12345678-darwin-arm64.tar.gz",
+            "entrypoint": "tool-test-tidy-engine-12345678",
+            "format": "tar.gz"
+          },
+          "darwin-x86_64": {
+            "url": "https://github.com/whtcjdtc2007/anna-executa-examples/releases/download/tidy-engine-v1.0.0/tool-test-tidy-engine-12345678-darwin-x86_64.tar.gz",
+            "entrypoint": "tool-test-tidy-engine-12345678",
+            "format": "tar.gz"
+          },
+          "linux-x86_64": {
+            "url": "https://github.com/whtcjdtc2007/anna-executa-examples/releases/download/tidy-engine-v1.0.0/tool-test-tidy-engine-12345678-linux-x86_64.tar.gz",
+            "entrypoint": "tool-test-tidy-engine-12345678",
+            "format": "tar.gz"
+          }
+        }
+      }
+    }
+  },
+
+  "_comment": "Dev fields (tool_id/type/enabled) are read by `anna-app dev`; publish metadata (slug/name/version/executa_type) by `anna-app executa publish`. Replace tool_id with your server-minted id from https://anna.partners (More -> Advanced -> Executa) before publishing. Run `anna-app dev` from the app root to launch this executa locally."
+}

@@ -1,0 +1,24 @@
+{
+  "slug": "tidy-data",
+  "name": "TidyData",
+  "version": "0.1.0",
+  "tagline": "Clean any messy spreadsheet — the AI proposes, the engine proves, you approve.",
+  "description": "TidyData turns Anna into a trustworthy data-cleaning companion. Paste a messy CSV or spreadsheet, and Anna proposes plain-English cleaning operations (trim spaces, fix dates, dedupe rows, normalize numbers, split columns). A deterministic Executa engine — never the model — applies each operation and reports the exact rows and cells it changed, so the numbers can't be hallucinated. Nothing touches your data until you click Approve.\n\n**What's inside**\n\n- A clean single-window UI with a live data preview, an issues scan, and an approve/skip review queue.\n- `tidy-engine` — Executa stdio tool (Python) that is the single source of truth for the table.\n- `tidy-coach` — declarative SKILL.md enforcing the propose-then-ratify protocol.\n\n**How to use**\n\nMention the app in chat (`#tidy-data`) or open the window. Paste your rows, press Analyze, review each proposed fix, approve the ones you want, and export a clean CSV back into chat.",
+  "category": "productivity",
+  "logo_url": "https://example.com/tidy-data/logo.png",
+  "cover_url": "https://example.com/tidy-data/cover.png",
+  "screenshots": [
+    "https://example.com/tidy-data/shot-1.png",
+    "https://example.com/tidy-data/shot-2.png"
+  ],
+  "homepage_url": "https://github.com/whtcjdtc2007/anna-executa-examples/tree/main/examples/anna-app-tidy-data",
+  "support_url": "https://github.com/whtcjdtc2007/anna-executa-examples/issues",
+  "privacy_url": "https://github.com/whtcjdtc2007/anna-executa-examples/tree/main/examples/anna-app-tidy-data#privacy",
+  "pricing_model": "free",
+
+  "_comment_bundled_executas": "Executas that ship inside this app. `anna-app apps publish` publishes each one first, then substitutes its server-minted tool_id into every `bundled:<handle>` reference in manifest.json (in memory) and writes bundle/anna-tool-ids.js so the UI bundle can read the same ids.",
+  "bundled_executas": {
+    "tidy-engine": { "path": "./executas/tidy-engine-python" },
+    "tidy-coach": { "path": "./executas/tidy-coach" }
+  }
+}

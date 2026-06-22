@@ -1,0 +1,16 @@
+{
+  "name": "anna-app-tidy-data",
+  "private": true,
+  "version": "0.1.0",
+  "description": "TidyData — Anna App: AI proposes spreadsheet fixes, a deterministic engine proves them, you approve.",
+  "scripts": {
+    "dev": "anna-app dev",
+    "dev:nollm": "anna-app dev --no-llm",
+    "validate": "anna-app validate --strict",
+    "fixture:verify": "anna-app fixture verify fixtures/*.jsonl",
+    "test:engine": "python executas/tidy-engine-python/test_engine_contract.py"
+  },
+  "devDependencies": {
+    "@anna-ai/cli": "^0.1.22"
+  }
+}

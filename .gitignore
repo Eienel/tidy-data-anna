@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+build/
+dist/
+dist-anna/
+node_modules/
+bundle/anna-tool-ids.js
+.anna/
+*.broken.*.json

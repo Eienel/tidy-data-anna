@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>TidyData</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body data-stage="intake">
+    <div class="aurora" aria-hidden="true">
+      <span class="aurora__blob aurora__blob--a"></span>
+      <span class="aurora__blob aurora__blob--b"></span>
+    </div>
+
+    <main class="shell">
+      <header class="shell__head">
+        <div class="brand">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__name">TidyData</span>
+        </div>
+        <div class="head__right">
+          <span id="status-label" class="status muted">Ready</span>
+          <button class="iconbtn" id="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- STAGE 1: intake -->
+      <section class="card stage stage--intake" id="stage-intake">
+        <h2 class="card__title">Paste your messy data</h2>
+        <p class="muted small">CSV or TSV. The AI proposes fixes; a deterministic engine proves and applies them — only after you approve.</p>
+        <textarea id="raw-input" class="raw" spellcheck="false" placeholder="Name, Date, Amount&#10; alice , 01/05/2023, $1,200.50&#10;BOB, 2023-01-06, 900"></textarea>
+        <div class="row gap">
+          <button class="btn btn--primary" id="analyze-btn" type="button">Analyze</button>
+          <button class="btn btn--ghost" id="sample-btn" type="button">Load sample</button>
+        </div>
+      </section>
+
+      <!-- STAGE 2: workspace -->
+      <section class="stage stage--work" id="stage-work" hidden>
+        <div class="grid">
+          <div class="col col--data">
+            <div class="card">
+              <header class="card__head">
+                <h2>Preview</h2>
+                <span id="dims" class="muted small">—</span>
+              </header>
+              <div class="tablewrap"><table id="data-table"><thead></thead><tbody></tbody></table></div>
+            </div>
+            <div class="card">
+              <header class="card__head">
+                <h2>Issues found</h2>
+                <span id="issue-count" class="pill">0</span>
+              </header>
+              <ul id="issue-list" class="issues"></ul>
+            </div>
+          </div>
+
+          <div class="col col--review">
+            <div class="card card--review">
+              <header class="card__head">
+                <h2>Proposed fixes</h2>
+                <span id="proposer-tag" class="tag">—</span>
+              </header>
+              <p class="muted small">Each fix shows the engine's exact effect. Nothing is applied until you approve.</p>
+              <ul id="op-list" class="ops"></ul>
+              <p id="ops-empty" class="muted small" hidden>No remaining proposals. Add more from chat, or export.</p>
+            </div>
+
+            <div class="card card--actions">
+              <header class="card__head">
+                <h2>Applied</h2>
+                <span id="applied-count" class="pill pill--ok">0</span>
+              </header>
+              <ul id="applied-list" class="applied"></ul>
+              <div class="row gap">
+                <button class="btn btn--ghost" id="undo-btn" type="button" disabled>Undo last</button>
+                <button class="btn btn--primary" id="export-btn" type="button">Export clean CSV</button>
+              </div>
+              <button class="btn btn--ghost btn--block" id="restart-btn" type="button">Start over</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="shell__foot">
+        <span id="conn-status" class="dot dot--off" title="Disconnected"></span>
+        <span class="muted small">TidyData · v0.1.0 · AI proposes · the engine proves · you approve</span>
+      </footer>
+    </main>
+
+    <script src="anna-tool-ids.js" defer></script>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

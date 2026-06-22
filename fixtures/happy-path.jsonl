@@ -1,0 +1,15 @@
+{"t":0,"kind":"meta","harness_version":"0.1","session_id":"dev-session","window_uuid":"dev-wid"}
+{"t":1,"kind":"req","id":1,"ns":"window","method":"hello","args":{}}
+{"t":2,"kind":"res","id":1,"ok":true,"result":{"wid":"dev-wid","user_id":1}}
+{"t":10,"kind":"req","id":2,"ns":"tools","method":"invoke","args":{"tool_id":"tool-test-tidy-engine-12345678","method":"tidy","args":{"action":"load","raw_text":"Name, Date ,Amount\n alice , 01/05/2023,$1200.50\nBOB,2023-01-06, 900 \n alice , 01/05/2023,$1200.50"}}}
+{"t":11,"kind":"res","id":2,"ok":true,"result":{"success":true,"data":{"session_id":"abc123","issue_count":4,"issues":[{"kind":"whitespace","label":"4 cell(s) have leading/trailing spaces"}],"preview":{"headers":["Name","Date","Amount"],"rows":[],"row_count":3,"col_count":3,"truncated":false}}}}
+{"t":20,"kind":"req","id":3,"ns":"tools","method":"invoke","args":{"tool_id":"tool-test-tidy-engine-12345678","method":"tidy","args":{"action":"preview","session_id":"abc123","op":{"type":"trim_whitespace"}}}}
+{"t":21,"kind":"res","id":3,"ok":true,"result":{"success":true,"data":{"committed":false,"diff":{"rows_before":3,"rows_after":3,"rows_removed":0,"cols_removed":0,"cells_changed":4}}}}
+{"t":30,"kind":"req","id":4,"ns":"tools","method":"invoke","args":{"tool_id":"tool-test-tidy-engine-12345678","method":"tidy","args":{"action":"apply","session_id":"abc123","op":{"type":"dedupe_rows"}}}}
+{"t":31,"kind":"res","id":4,"ok":true,"result":{"success":true,"data":{"committed":true,"diff":{"rows_before":3,"rows_after":2,"rows_removed":1,"cols_removed":0,"cells_changed":0},"applied_count":1,"undo_depth":1}}}
+{"t":40,"kind":"req","id":5,"ns":"window","method":"set_title","args":{"title":"3 issues — TidyData"}}
+{"t":41,"kind":"res","id":5,"ok":true,"result":{"ok":true}}
+{"t":50,"kind":"req","id":6,"ns":"chat","method":"write_message","args":{"role":"user","content":"Approved fix · Remove duplicate rows — 1 row removed"}}
+{"t":51,"kind":"res","id":6,"ok":true,"result":{"ok":true}}
+{"t":60,"kind":"req","id":7,"ns":"tools","method":"invoke","args":{"tool_id":"tool-test-tidy-engine-12345678","method":"tidy","args":{"action":"export","session_id":"abc123"}}}
+{"t":61,"kind":"res","id":7,"ok":true,"result":{"success":true,"data":{"csv":"Name,Date,Amount\nalice,2023-01-05,1200.50\nBOB,2023-01-06,900\n","row_count":2,"col_count":3}}}
