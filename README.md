@@ -1,6 +1,6 @@
 # TidyData - clean any messy spreadsheet, inside Anna
 
-**AI proposes · the engine proves · you approve.**
+**AI proposes - the engine proves - you approve.**
 
 TidyData is an Anna App for the chore everyone does and nobody trusts: cleaning a
 messy spreadsheet. Paste a CSV, and Anna proposes plain-English fixes (trim
@@ -72,21 +72,15 @@ echo '{"jsonrpc":"2.0","method":"describe","id":1}' | python executas/tidy-engin
 
 ## Cleaning operations
 
-`trim_whitespace` · `drop_empty_rows` · `drop_empty_columns` · `dedupe_rows` ·
-`normalize_case{column,mode}` · `standardize_dates{column}` ·
-`normalize_numbers{column}` · `fill_blanks{column,value}` ·
-`split_column{column,delimiter,into[]}` · `rename_column{column,to}`
+`trim_whitespace` | `drop_empty_rows` | `drop_empty_columns` | `dedupe_rows` |
+`normalize_case{column,mode}` | `standardize_dates{column}` |
+`normalize_numbers{column}` | `fill_blanks{column,value}` |
+`split_column{column,delimiter,into[]}` | `rename_column{column,to}`
 
-## Publishing (binary distribution)
+## Deployment
 
-1. Mint a `tool_id` on https://anna.partners (More → Advanced → Executa) and
-   replace the `tool-test-tidy-engine-12345678` placeholder in `executa.json`,
-   `pyproject.toml`, `bundle/app.js` (`DEV_FALLBACK_TOOL_ID`), and the
-   `tidy-coach/SKILL.md` requires block.
-2. Push to a fork of `anna-executa-examples` and run the
-   `Build tidy-engine binaries` GitHub Action (builds macOS + Linux on cloud
-   runners - no local PyInstaller needed).
-3. On the Anna platform set the Tool's Distribution Type to **Binary** and paste
-   the three GitHub Release URLs, then **Install Essentials**.
+1. The GitHub Action (`build-tidy-engine-binary.yml`) automatically builds and publishes platform-specific binaries (macOS ARM64, macOS x86_64, Linux x86_64) to GitHub Releases.
+2. On the Anna platform (https://anna.partners), set the Tool's Distribution Type to **Binary** and paste the three GitHub Release URLs from the latest build.
+3. Click **Install Essentials** to complete deployment.
 
 Built for the **Anna AI-Native App Hackathon**.

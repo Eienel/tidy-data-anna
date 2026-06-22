@@ -52,7 +52,7 @@ MANIFEST: dict[str, Any] = {
         "exact before/after diffs. State persists to ~/.anna/tidy-data/state.json."
     ),
     "author": "TidyData",
-    "homepage": "https://github.com/whtcjdtc2007/anna-executa-examples",
+    "homepage": "https://github.com/Eienel/tidy-data-anna",
     "license": "MIT",
     "tags": ["productivity", "data", "csv", "cleaning", "anna-app"],
     "tools": [
