@@ -18,7 +18,6 @@
 
   "_comment_bundled_executas": "Executas that ship inside this app. `anna-app apps publish` publishes each one first, then substitutes its server-minted tool_id into every `bundled:<handle>` reference in manifest.json (in memory) and writes bundle/anna-tool-ids.js so the UI bundle can read the same ids.",
   "bundled_executas": {
-    "tidy-engine": { "path": "./executas/tidy-engine-python" },
-    "tidy-coach": { "path": "./executas/tidy-coach" }
+    "tidy-engine": { "path": "./executas/tidy-engine-python" }
   }
 }

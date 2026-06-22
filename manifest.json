@@ -16,10 +16,6 @@
       "tool_id": "bundled:tidy-engine",
       "min_version": "1.0.0",
       "version": "latest"
-    },
-    {
-      "tool_id": "bundled:tidy-coach",
-      "version": "latest"
     }
   ],
   "optional_executas": [],
