@@ -38,13 +38,13 @@ const OP_TYPES = new Set([
   "split_column", "rename_column",
 ]);
 
-const SAMPLE = `Full Name, Signup Date , Spend ,Plan,Plan
- alice cooper ,01/05/2023,$1,240.00,pro,pro
-BOB DYLAN, 2023-01-06 ,990,FREE,FREE
- alice cooper ,01/05/2023,$1,240.00,pro,pro
-joni mitchell,Jan 7 2023, 2,030.50 ,Pro,Pro
-,,,,
-NEIL young , 2023/01/08,1170,free,free`;
+const SAMPLE = `Full Name, Signup Date , Spend ,Plan
+ alice cooper ,01/05/2023,"$1,240.00",pro
+BOB DYLAN, 2023-01-06 ,"$990.00",FREE
+ alice cooper ,01/05/2023,"$1,240.00",pro
+joni mitchell,Jan 7 2023,"$2,030.50",Pro
+,,,
+NEIL young , 2023/01/08,"$1,170.00",free`;
 
 const $ = (s) => document.querySelector(s);
 
